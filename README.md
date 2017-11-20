@@ -1,4 +1,4 @@
-# <font color="orange">Laravel-5.2</font>
+# <font color="orange">Laravel 5.2</font>
 這份文件主要是簡單敘述以及提到一些關於 laravel 5.2 會遇到的問題以及解決方法！
 
 ## 1. 線上專案下載後重新建構 ##
