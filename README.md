@@ -38,7 +38,7 @@ laravel 5.2 有時候會遇到需要清除 cache 的時候，以下列出常見�
 (d). 變更一些資料的內容並希望能夠及時更新，輸入：<font color="blue">`php artisan cache:clear`</font>
 
 ## 3. 關於 Model ##
-1. 單獨建立新 model(例如 User )，輸入 <font color="blue">`php artisan make:model User`</font><br>，就會在<font color="red">`database/migrations`</font> 生成 users 資料表
+1. 單獨建立新 model (例如 User )，輸入 <font color="blue">`php artisan make:model User`</font><br>，就會在<font color="red">`database/migrations`</font> 生成 users 資料表
 
 2. 建立 model (例如 User ) 時，想要一起產生一個資料庫遷移，輸入 <font color="blue">`php artisan make:model User -m`</font>
 
@@ -48,7 +48,7 @@ laravel 5.2 有時候會遇到需要清除 cache 的時候，以下列出常見�
 
 	```php
 	Schema::create('votes', function (Blueprint $table) {
-	    $table->string('name');
+		$table->string('name');
 	});
 
 	```
