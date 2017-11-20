@@ -20,7 +20,9 @@
 	DB_PASSWORD=database 的密碼
 	```
 
-	(f). 輸入 <font color="blue">`php artisan serve`</font>，執行專案，預設路徑：<font color="red">http://localhost:8000</font>
+	(f). <font color="red">如果此專案有 database</font>，輸入：<font color="blue">`php artisan migrate`</font>，若無則可略過此步驟
+	
+	(g). 輸入 <font color="blue">`php artisan serve`</font>，執行專案，預設路徑：<font color="red">http://localhost:8000</font>
 
               -----------------基本上到這邊為止就可以將一個專案執行起來-----------------
 
