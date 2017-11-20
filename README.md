@@ -78,7 +78,7 @@ laravel 5.2 的 route 都統一寫在 <font color="red">`app/Http`</font> 底下
 
 	```php
 	Route::get('/'), function() {
-	return '這是首頁'};
+		return '這是首頁'};
 	```
 
 2. 如有使用 blade 模板開發網頁(例如：main.blade.php )，可寫成如下：
