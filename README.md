@@ -53,25 +53,25 @@ laravel 5.2 有時候會遇到需要清除 cache 的時候，以下列出常見�
 2. 建立 model (例如 User ) 時，想要一起產生一個資料庫遷移，輸入 <font color="blue">`php artisan make:model User -m`</font>
 
 3. 如果想要在目前的 model 裡增加 name 欄位，則直接執行方法 1，重點在下面紅色標記的 create 要改成 table <br><br>
-修改前：
-        `Schema::`<font color="red">`create`</font>`('votes', function (Blueprint $table) {`<br>
+	修改前：<br>
+`Schema::`<font color="red">`create`</font>`('votes', function (Blueprint $table) {`<br>
          `$table->string('name');`<br>
-`});`
-<br><br>
-修改後：
-        `Schema::`<font color="red">`table`</font>`('votes', function (Blueprint $table) {`<br>
+`});`<br><br>
+
+	修改後：<br>
+`Schema::`<font color="red">`table`</font>`('votes', function (Blueprint $table) {`<br>
          `$table->string('name');`<br>
-`});`
+`});`<br><br>
 
 4. 關於 [Model](https://laravel.tw/docs/5.2/eloquent) 更詳細的內容
 
 ## 3. 關於 Controller ##
-1. 建立新 Controller (例如 UserController )，輸入 <font color="blue">`php artisan make:controller UserController`</font><br>就會在<font color="red">`app/Http/Controllers`</font> 生成 UserController
+1. 建立新 Controller (例如 UserController )，輸入 <font color="blue">`php artisan make:controller UserController`</font>就會在<font color="red">`app/Http/Controllers`</font> 生成 UserController
 
 2. 關於 [Controller](https://laravel.tw/docs/5.2/controllers) 更詳細的內容
 
 ## 4. 關於 Request ##
-1. 建立新 Request (例如 UserRequest )，輸入 <font color="blue">`php artisan make:request UserRequest`</font><br>就會在<font color="red">`app/Http/Requests`</font> 生成 UserRequest
+1. 建立新 Request (例如 UserRequest )，輸入 <font color="blue">`php artisan make:request UserRequest`</font>就會在<font color="red">`app/Http/Requests`</font> 生成 UserRequest
 
 2. 關於 [Request](https://laravel.tw/docs/5.2/requests) 更詳細的內容
 
