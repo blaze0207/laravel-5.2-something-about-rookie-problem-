@@ -49,8 +49,9 @@ laravel 5.2 有時候會遇到需要清除 cache 的時候，以下列出常見�
 
 ## 3. 關於 Model ##
 1. 單獨建立新 model(例如 User )，輸入 <font color="blue">`php artisan make:model User`</font><br>，就會在<font color="red">`database/migrations`</font> 生成 users 資料表
-<br><br>
-2. 建立 model (例如 User ) 時，想要一起產生一個資料庫遷移，輸入 <font color="blue">`php artisan make:model User -m`</font><br><br>
+
+2. 建立 model (例如 User ) 時，想要一起產生一個資料庫遷移，輸入 <font color="blue">`php artisan make:model User -m`</font>
+
 3. 如果想要在目前的 model 裡增加 name 欄位，則直接執行方法 1，重點在下面紅色標記的 create 要改成 table <br><br>
 修改前：
         `Schema::`<font color="red">`create`</font>`('votes', function (Blueprint $table) {`<br>
@@ -62,24 +63,30 @@ laravel 5.2 有時候會遇到需要清除 cache 的時候，以下列出常見�
          `$table->string('name');`<br>
 `});`
 
+4. 關於 [Model](https://laravel.tw/docs/5.2/eloquent) 更詳細的內容
+
 ## 3. 關於 Controller ##
 1. 建立新 Controller (例如 UserController )，輸入 <font color="blue">`php artisan make:controller UserController`</font><br>就會在<font color="red">`app/Http/Controllers`</font> 生成 UserController
 
+2. 關於 [Controller](https://laravel.tw/docs/5.2/controllers) 更詳細的內容
+
 ## 4. 關於 Request ##
-1. 建立新 Request (例如 UserRequest )，輸入 <font color="blue">`php artisan make:request UserRequest`</font><br>就會在<font color="red">`app/Http/Requests`</font> 生成 UserRequest 
+1. 建立新 Request (例如 UserRequest )，輸入 <font color="blue">`php artisan make:request UserRequest`</font><br>就會在<font color="red">`app/Http/Requests`</font> 生成 UserRequest
+
+2. 關於 [Request](https://laravel.tw/docs/5.2/requests) 更詳細的內容
 
 ## 5. 關於 route ##
 laravel 5.2 的 route 都統一寫在 <font color="red">`app/Http`</font> 底下的 <font color="blue">`route.php`</font><br>
 
 1. 例如回到首頁的路由 ( '/' )，<br>
 `Route::get('/'), function(){
-return '這是首頁'};`<br>
+return '這是首頁'};`
 
-2. 如果有使用 blade 網頁，可寫成如下：<br>
+2. 如有使用 blade 模板開發網頁(例如：main.blade.php )，可寫成如下：<br>
 `Route::get('/'), function(){
-return view('main')};`<br>
+return view('main')};`
 
-3. 多個一樣的路徑，可以將其 Group 起來，例如有('/api/main'，'/api/info'，'/api/article')，可寫成如下：<br>
+3. 當有多組相同的前綴路徑，可以將其 Group 起來，例如有('/api/main'，'/api/info'，'/api/article')，可寫成如下：<br>
 `Route::group(['prefix' => 'api'], function () {`<br>
         `Route::get('main', function(){
 return view('main')};`<br>
@@ -89,10 +96,32 @@ return view('info')};`<br>
 return view('article')};`<br>
 `});`
 
-4. 多個一樣的路徑，所使用的 controller 也一樣的話，可以改寫成如下較為簡潔的寫法<br>
+4. 當有多組相同的前綴路徑，且所使用的 Controller 也一樣，可改寫成如下較為簡潔的寫法<br>
 `Route::group(['prefix' => 'api'], function () {`<br>
         `Route::get('main', UserController@main);`<br>
         `Route::get('info', UserController@info);`<br>
         `Route::get('article', UserController@article);`<br>
 `});`<br>
         <font color="red">***其中 @main,@info,@article 個別代表 UserController 裡的 public function***</font>
+
+5. 關於 [route](https://laravel.tw/docs/5.2/routing) 更詳細的內容
+
+## 5. 如何在 Blade 使用 Form & HTML 語法 ##
+要能夠在 blade 使用 `{!!Form!!}` 必須要安裝套件，方法如下：<br>
+
+1. 輸入 <font color="blue">`composer require "laravelcollective/html":"5.2.*"`</font>
+
+2. 新增 provider 到 <font color="red">`config/app.php`</font> 裡面，如下所示：<br>
+`'providers' => [`<br>
+        `Collective\Html\HtmlServiceProvider::class,`<br>
+`],`
+
+3. 新增 aliases 到 <font color="red">`config/app.php`</font> 裡面，如下所示：<br>
+`'providers' => [`<br>
+        `'Form' => Collective\Html\FormFacade::class,`<br>
+        `'Html' => Collective\Html\HtmlFacade::class,`<br>
+`],`
+
+4. 關於 [Blade 模板](https://laravel.tw/docs/5.2/blade) 更詳細的內容
+
+
