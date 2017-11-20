@@ -135,7 +135,7 @@ laravel 5.2 的 route 都統一寫在 <font color="red">`app/Http`</font> 底下
 		'Form' => Collective\Html\FormFacade::class,
 		'Html' => Collective\Html\HtmlFacade::class,
 	],
-```
+	```
 
 4. 關於 [Blade 模板](https://laravel.tw/docs/5.2/blade) 更詳細的內容
 
