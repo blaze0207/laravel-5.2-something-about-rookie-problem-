@@ -15,9 +15,9 @@
 	(e). 編輯 <font color="red">`.env`</font>，基本設定主要是 database 的部分：
 
 	```php
-	DB_DATABASE= database 的名字
-	DB_USERNAME= database 的使用者
-	DB_PASSWORD= database 的密碼
+	DB_DATABASE=database 的名字
+	DB_USERNAME=database 的使用者
+	DB_PASSWORD=database 的密碼
 	```
 
 	(f). 輸入 <font color="blue">`php artisan serve`</font>，執行專案，預設路徑：<font color="red">http://localhost:8000</font>
