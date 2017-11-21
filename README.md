@@ -144,7 +144,7 @@ laravel 5.2 的 route 都統一寫在 <font color="red">`app/Http`</font> 底下
 4. 關於 [Blade 模板](https://laravel.tw/docs/5.2/blade) 更詳細的內容
 
 ## 6. laravel 使用 Google 或 Facebook 登入 ##
-laravel 有一個套件叫做 [laravel/socialite](https://github.com/laravel/socialite/tree/2.0)，已經滿完美的結合 Google，Facebook，Twiter，GitHub 和 Twiter 的登入系統，以下將會簡單示範如何使用 Facebook 登入
+laravel 有一個套件叫做 [laravel/socialite](https://github.com/laravel/socialite/tree/2.0)，已經滿完美的結合 Google，Facebook，Twiter，GitHub...等登入系統，以下將會簡單示範如何使用 Facebook 登入
 
 1. 請先到 [Facebook developer](https://developers.facebook.com/docs/facebook-login/) 申請登入系統 API<br>
 教學連結：[如何申請建立 Facebook APP ID 應用程式ID](https://sofree.cc/apply-facebook-app-id/)(此篇教學為網路上搜尋，引用自--香腸炒魷魚)
@@ -182,7 +182,7 @@ laravel 有一個套件叫做 [laravel/socialite](https://github.com/laravel/soc
 	FB_REDIRECT=填入您要 redirect 的路徑
 	```
 
-7. 創建一個 Controller，這邊以 LoginController 命名，輸入：<font color="blue">`php artisan make:controller FacebookController`</font>
+7. 創建一個 Controller，這邊以 FacebookController 命名，輸入：<font color="blue">`php artisan make:controller FacebookController`</font>
 
 8. 在 LoginController 新增以下兩個 function：
 
