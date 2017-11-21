@@ -345,7 +345,7 @@ laravel 5.2 提供了一個功能 [fzaninotto/Faker](https://github.com/fzaninot
 	```
 	
 5. 進入 <font color="red">`database/factories`</font>，修改 <font color="red">`ModelFactory.php`</font>，如下：
-> 這邊主要是去定義假資料的型態以及內容，更詳細有關 <font color="blue">$faker</font> 有哪些方法可用，可以直接看原始碼 <font color="blue">`Generator.php`</font>，路徑：<font color="red">`/vendor/fzaninotto/faker/src/Faker/Generator.php`</font>
+	> 這邊主要是去定義假資料的型態以及內容，更詳細有關 <font color="blue">$faker</font> 有哪些方法可用，可以直接看原始碼 <font color="blue">`Generator.php`</font>，路徑：<font color="red">`/vendor/fzaninotto/faker/src/Faker/Generator.php`</font>
 
 	```php
 		$factory->define(App\User::class, function (Faker\Generator $faker) {
@@ -363,7 +363,7 @@ laravel 5.2 提供了一個功能 [fzaninotto/Faker](https://github.com/fzaninot
 8. 進入後，輸入： <font color="blue">`namespace App`</font>，接著再輸入：<font color="blue">`factory(User::class, 5)->make();`</font>，如果有產生如下圖的資料就表示一切都正確接上囉！
 
 	![正確](https://i.imgur.com/tQZARfp.png)
-> <font color="red">**注意這邊我是先用 make() 來確定一切正確無誤**</font>
+	> <font color="red">**注意這邊我是先用 make() 來確定一切正確無誤**</font>
 
 9. 最後要寫入資料庫則是要改成輸入：<font color="blue">`factory(User::class, 5)->create();`</font>， 如果一切正確無誤就會如下圖所示：
 
