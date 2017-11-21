@@ -200,7 +200,7 @@ laravel 有一個套件叫做 [laravel/socialite](https://github.com/laravel/soc
 
 7. 創建一個 Controller，這邊以 FacebookController 命名，輸入：<font color="blue">`php artisan make:controller FacebookController`</font>
 
-8. 在 LoginController 新增以下兩個 function：
+8. 在 FacebookController 新增以下兩個 function：
 
 	```php
 	class FacebookController extends Controller
