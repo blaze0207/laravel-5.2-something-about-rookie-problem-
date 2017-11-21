@@ -1,5 +1,8 @@
 # <font color="orange">Laravel 5.2</font>
+
 這份文件主要是簡單敘述以及提到一些關於 laravel 5.2 會遇到的問題以及解決方法！
+
+<font color="red">內容會不斷更新</font>
 
 ## Change History
 | Date       | Description                  | Author  |
