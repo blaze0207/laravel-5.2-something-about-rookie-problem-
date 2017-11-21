@@ -16,6 +16,7 @@
 |            | 新增--7. 如何在 Blade 使用 Form & HTML 語法 | blaze0207 |
 |            | 新增--8. laravel 使用 Google 或 Facebook 登入 | blaze0207 |
 | 2017-11-21 | 新增--9. 如何自訂義驗證規則     | blaze0207 |
+|| 新增--10. 如何產生假資料 | blaze0207 |
 
 ## 1. 線上專案下載後重新建構 ##
 1. 進入從 git 或 bitbuckit...等其他線上版控下載下來的專案
@@ -303,3 +304,69 @@ laravel 有一個套件叫做 [laravel/socialite](https://github.com/laravel/soc
 	}
 	```
 5. 關於 [自訂驗證規則](https://laravel.tw/docs/5.2/validation#custom-validation-rules) 更詳細的內容
+
+## 10. 如何產生假資料 ( 範例：User 基本資料 )##
+laravel 5.2 提供了一個功能 [fzaninotto/Faker](https://github.com/fzaninotto/Faker)，讓開發者可以快速產生測試資料，對於開發中的測試及網頁顯示非常的便利，以下我會用基本的 User 資料來當作範例
+
+1. 建立一個新的專案，輸入：<font color="blue">`composer create-project laravel/laravel learn-factory "5.2.*"`</font>
+
+2. 編輯 <font color="red">`.env`</font>
+
+	```php
+	DB_DATABASE=database 的名字
+	DB_USERNAME=database 的使用者
+	DB_PASSWORD=database 的密碼
+	```
+
+3. 更新 faker，輸入：<font color="blue">`composer require fzaninotto/faker`</font>
+
+4. 進入 <font color="red">`database/migrations`</font>，修改 laravel 在創建的時候預設的 <font color="red">users</font> 資料表，修改如下：
+
+	```php
+	class CreateUsersTable extends Migration
+	{
+		public function up()
+		{
+			Schema::create('users', function (Blueprint $table) {
+				$table->increments('id');
+				$table->string('name');
+				$table->string('phone');
+				$table->string('email')->unique();
+				$table->string('address');
+				$table->timestamps();
+			});
+		}
+
+		public function down()
+		{
+			Schema::drop('users');
+		}
+	}
+	```
+	
+5. 進入 <font color="red">`database/factories`</font>，修改 <font color="red">`ModelFactory.php`</font>，如下：
+> 這邊主要是去定義假資料的型態以及內容，更詳細有關 <font color="blue">$faker</font> 有哪些方法可用，可以直接看原始碼 <font color="blue">`Generator.php`</font>，路徑：<font color="red">`/vendor/fzaninotto/faker/src/Faker/Generator.php`</font>
+
+	```php
+		$factory->define(App\User::class, function (Faker\Generator $faker) {
+			return [
+				'name' => $faker->name,
+				'phone' => '09'.$faker->randomNumber(8, true),
+				'email' => $faker->unique()->safeEmail,
+				'address' => $faker->address,
+			];
+		});
+	```
+
+6. 輸入：<font color="blue">`php artisan migrate`</font> 建立 table 
+7. 輸入：<font color="blue">`php artisan tinker`</font> 進入 laravel 內建的 REPL (read-eval-print-loop)，REPL是指交互式命令行界面
+8. 進入後，輸入： <font color="blue">`namespace App`</font>，接著再輸入：<font color="blue">`factory(User::class, 5)->make();`</font>，如果有產生如下圖的資料就表示一切都正確接上囉！
+
+	![正確](https://i.imgur.com/tQZARfp.png)
+> <font color="red">**注意這邊我是先用 make() 來確定一切正確無誤**</font>
+
+9. 最後要寫入資料庫則是要改成輸入：<font color="blue">`factory(User::class, 5)->create();`</font>， 如果一切正確無誤就會如下圖所示：
+
+	![正確寫入資料庫](https://i.imgur.com/Mgn1w0V.png)
+	
+	![正確寫入資料庫](https://i.imgur.com/vXAlyZW.png)
