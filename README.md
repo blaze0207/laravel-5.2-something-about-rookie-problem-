@@ -305,7 +305,7 @@ laravel 有一個套件叫做 [laravel/socialite](https://github.com/laravel/soc
 	```
 5. 關於 [自訂驗證規則](https://laravel.tw/docs/5.2/validation#custom-validation-rules) 更詳細的內容
 
-## 10. 如何產生假資料 ( 範例：User 基本資料 )##
+## 10. 如何產生假資料 ( 範例：User 基本資料 ) ##
 laravel 5.2 提供了一個功能 [fzaninotto/Faker](https://github.com/fzaninotto/Faker)，讓開發者可以快速產生測試資料，對於開發中的測試及網頁顯示非常的便利，以下我會用基本的 User 資料來當作範例
 
 1. 建立一個新的專案，輸入：<font color="blue">`composer create-project laravel/laravel learn-factory "5.2.*"`</font>
