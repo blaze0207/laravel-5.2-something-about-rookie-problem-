@@ -1,6 +1,20 @@
 # <font color="orange">Laravel 5.2</font>
 這份文件主要是簡單敘述以及提到一些關於 laravel 5.2 會遇到的問題以及解決方法！
 
+## Change History
+| Date       | Description                  | Author  |
+| ---------- | ---------------------------- | ------- |
+| 2017-11-20 | 新增--1. 線上專案下載後重新建構  | blaze0207 |
+|            | 新增--2. 關於 Cache           | blaze0207 |
+|            | 新增--3. 關於 Model           | blaze0207 |
+|            | 新增--4. 關於 Controller      | blaze0207 |
+|            | 新增--5. 關於 Request         | blaze0207 |
+|            | 新增--6. 關於 route           | blaze0207 |
+|            | 新增--7. 如何在 Blade 使用 Form & HTML 語法 | blaze0207 |
+|            | 新增--8. laravel 使用 Google 或 Facebook 登入 | blaze0207 |
+| 2017-11-21 | 新增--9. 如何自訂義驗證規則     | blaze0207 |
+
+<br>
 ## 1. 線上專案下載後重新建構 ##
 1. 進入從 git 或 bitbuckit...等其他線上版控下載下來的專案
 
@@ -21,7 +35,7 @@
 	```
 
 	(f). <font color="red">如果此專案有 database</font>，輸入：<font color="blue">`php artisan migrate`</font>，若無則可略過此步驟
-	
+
 	(g). 輸入 <font color="blue">`php artisan serve`</font>，執行專案，預設路徑：<font color="red">http://localhost:8000</font>
 
               -----------------基本上到這邊為止就可以將一個專案執行起來-----------------
@@ -63,17 +77,17 @@ laravel 5.2 有時候會遇到需要清除 cache 的時候，以下列出常見�
 
 4. 關於 [Model](https://laravel.tw/docs/5.2/eloquent) 更詳細的內容
 
-## 3. 關於 Controller ##
+## 4. 關於 Controller ##
 1. 建立新 Controller (例如 UserController )，輸入 <font color="blue">`php artisan make:controller UserController`</font>就會在<font color="red">`app/Http/Controllers`</font> 生成 UserController
 
 2. 關於 [Controller](https://laravel.tw/docs/5.2/controllers) 更詳細的內容
 
-## 4. 關於 Request ##
+## 5. 關於 Request ##
 1. 建立新 Request (例如 UserRequest )，輸入 <font color="blue">`php artisan make:request UserRequest`</font>就會在<font color="red">`app/Http/Requests`</font> 生成 UserRequest
 
 2. 關於 [Request](https://laravel.tw/docs/5.2/requests) 更詳細的內容
 
-## 5. 關於 route ##
+## 6. 關於 route ##
 laravel 5.2 的 route 都統一寫在 <font color="red">`app/Http`</font> 底下的 <font color="blue">`route.php`</font><br>
 
 1. 例如回到首頁的路由 ( '/' )
@@ -119,7 +133,7 @@ laravel 5.2 的 route 都統一寫在 <font color="red">`app/Http`</font> 底下
 
 5. 關於 [route](https://laravel.tw/docs/5.2/routing) 更詳細的內容
 
-## 5. 如何在 Blade 使用 Form & HTML 語法 ##
+## 7. 如何在 Blade 使用 Form & HTML 語法 ##
 要能夠在 blade 使用 `{!!Form!!}` 必須要安裝套件，方法如下：<br>
 
 1. 輸入 <font color="blue">`composer require "laravelcollective/html":"5.2.*"`</font>
@@ -143,7 +157,7 @@ laravel 5.2 的 route 都統一寫在 <font color="red">`app/Http`</font> 底下
 
 4. 關於 [Blade 模板](https://laravel.tw/docs/5.2/blade) 更詳細的內容
 
-## 6. laravel 使用 Google 或 Facebook 登入 ##
+## 8. laravel 使用 Google 或 Facebook 登入 ##
 laravel 有一個套件叫做 [laravel/socialite](https://github.com/laravel/socialite/tree/2.0)，已經滿完美的結合 Google，Facebook，Twiter，GitHub...等登入系統，以下將會簡單示範如何使用 Facebook 登入
 
 1. 請先到 [Facebook developer](https://developers.facebook.com/docs/facebook-login/) 申請登入系統 API<br>
@@ -215,3 +229,75 @@ laravel 有一個套件叫做 [laravel/socialite](https://github.com/laravel/soc
 > 此資訊表示 Facebook 登入成功
 > <br>
 > Google 登入步驟跟 Facebook 登入一模一樣，只需將上述 facebook 的地方改成 google 即可
+
+## 9. 如何自定義驗證規則 (範例:年齡驗證) ##
+在 laravel 5.2 中提供了可以自定義驗證規則的方法，以下我用簡單的年齡是否滿十八歲來當作範例
+
+1. 首先到 <font color="red">`app/Providers`</font>，底下有一個檔案 <font color="blue">`AppServiceProvider.php`</font>
+
+
+2. 內容預設如下：
+
+	```php
+
+	class AppServiceProvider extends ServiceProvider
+	{
+	    public function boot()
+	    {
+
+	    }
+
+	    public function register()
+	    {
+	        //
+	    }
+	}
+
+	```
+
+3. 寫入關於年齡驗證的規則與回應，以現在 <font color="red">2017</font> 當標準，也就是說 <font color="red">19991231</font> 後出生的人都算未滿十八歲
+	> 記得在最上面要引入<font color="blue">`use Illuminate\Support\Facades\Validator;`</font>，不然會報錯說 Validator 找不到或是未定義<br>
+	> <font color="blue">birthday </font>：自定義規則的名稱<br>
+	> <font color="blue">$attribute</font>：要被驗證的屬性名<br>
+	> <font color="blue">$value </font>：要被驗證的值<br>
+
+	```php
+	class AppServiceProvider extends ServiceProvider
+		{
+		    public function boot()
+		    {
+				Validator::extend('birthday', function($attribute, $value) {
+		            if (! is_string($value) && ! is_numeric($value)) {
+		                return false;
+		            }
+
+		            $value > 19991231 ? false : true
+		        });
+		    }
+
+		    public function register()
+		    {
+		        //
+		    }
+		}
+	```
+	到這邊基本上一個簡易的年齡驗證就完成了，剩下就是去 request 裡面直接使用，如下所示
+
+4. 到 <font color="red">`app/Http/Requests`</font>，建立 <font color="blue">UserRequests.php</font>，可以直接用前面自定義好的 <font color="green">`'birthday'`</font> 驗證規則，如下：
+
+	```php
+	public function rules()
+	{
+		return [
+			'birthday' => ['required', 'birthday'],
+		];
+	}
+
+	public function messages() {
+		return [
+			'birthday.required' => '出生日期不能為空',
+			'birthday.birthday' => '您未滿十八歲'
+		];
+	}
+	```
+5. 關於 [自訂驗證規則](https://laravel.tw/docs/5.2/validation#custom-validation-rules) 更詳細的內容
