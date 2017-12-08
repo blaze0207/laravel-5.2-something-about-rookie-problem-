@@ -97,7 +97,7 @@ laravel 5.2 的 route 都統一寫在 <font color="red">`app/Http`</font> 底下
 
 	```php
 	Route::get('/'), function() {
-		return '這是首頁'
+		return '這是首頁';
 	};
 	```
 
@@ -105,7 +105,7 @@ laravel 5.2 的 route 都統一寫在 <font color="red">`app/Http`</font> 底下
 
 	```php
 	Route::get('/'), function() {
-		return view('main')
+		return view('main');
 	};
 	```
 3. 當有多組相同的前綴路徑，可以將其 Group 起來，例如有('/api/main'，'/api/info'，'/api/article')，可寫成如下：
