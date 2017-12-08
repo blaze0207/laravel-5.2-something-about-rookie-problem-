@@ -48,7 +48,7 @@ laravel 5.2 有時候會遇到需要清除 cache 的時候，以下列出常見�
 
 (a). <font color="red">`修改`</font> 或 <font color="red">`新增`</font> 或 <font color="red">`刪除`</font> blade 網頁，輸入：<font color="blue">`php artisan view:clear`</font>
 
-(b). 變更 <font color="red">`.env`</font>，輸入：<font color="blue">`php artisan config:cache`</font>
+(b). 變更 <font color="red">`.env`</font>，輸入：<font color="blue">`php artisan config:clear`</font>
 
 (c). 變更 <font color="red">`route.php`</font>，輸入：<font color="blue">`php artisan route:clear`</font> (個人覺得不太需要使用到)
 
