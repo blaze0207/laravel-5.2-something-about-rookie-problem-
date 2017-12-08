@@ -17,6 +17,7 @@
 |            | 新增--8. laravel 使用 Google 或 Facebook 登入 | blaze0207 |
 | 2017-11-21 | 新增--9. 如何自訂義驗證規則     | blaze0207 |
 || 新增--10. 如何利用 faker 產生測試資料 | blaze0207 |
+| 2017-12-08 | 新增--11. 如何自訂義命令     | blaze0207 |
 
 ## 1. 線上專案下載後重新建構 ##
 1. 進入從 git 或 bitbuckit...等其他線上版控下載下來的專案
@@ -67,7 +68,6 @@ laravel 5.2 有時候會遇到需要清除 cache 的時候，以下列出常見�
 	Schema::create('votes', function (Blueprint $table) {
 		$table->string('name');
 	});
-
 	```
 	> <font color="green">修改後</font>
 
@@ -75,7 +75,6 @@ laravel 5.2 有時候會遇到需要清除 cache 的時候，以下列出常見�
 	Schema::table('votes', function (Blueprint $table) {
 		$table->string('name');
 	});
-
 	```
 
 4. 關於 [Model](https://laravel.tw/docs/5.2/eloquent) 更詳細的內容
@@ -186,9 +185,9 @@ laravel 有一個套件叫做 [laravel/socialite](https://github.com/laravel/soc
 
 	```php
 	'facebook' => [
-	    'client_id' => env('FB_CLIENT_ID'),
-	    'client_secret' => env('FB_CLIENT_SECRET'),
-	    'redirect' => env('FB_REDIRECT')
+		'client_id' => env('FB_CLIENT_ID'),
+		'client_secret' => env('FB_CLIENT_SECRET'),
+		'redirect' => env('FB_REDIRECT')
 	],
 	```
 6. 編輯 <font color="red">`.env`</font>，在最下面新增您在 Facebook 申請的登入資訊，會有以下三項：
@@ -245,17 +244,16 @@ laravel 有一個套件叫做 [laravel/socialite](https://github.com/laravel/soc
 
 	class AppServiceProvider extends ServiceProvider
 	{
-	    public function boot()
-	    {
+		public function boot()
+		{
 
-	    }
+		}
 
-	    public function register()
-	    {
-	        //
-	    }
+		public function register()
+		{
+			//
+		}
 	}
-
 	```
 
 3. 寫入關於年齡驗證的規則與回應，以現在 <font color="red">2017</font> 當標準，也就是說 <font color="red">19991231</font> 後出生的人都算未滿十八歲
@@ -267,21 +265,20 @@ laravel 有一個套件叫做 [laravel/socialite](https://github.com/laravel/soc
 	```php
 	class AppServiceProvider extends ServiceProvider
 		{
-		    public function boot()
-		    {
+			public function boot()
+			{
 				Validator::extend('birthday', function($attribute, $value) {
-		            if (! is_string($value) && ! is_numeric($value)) {
-		                return false;
-		            }
+					if (! is_string($value) && ! is_numeric($value)) {
+						return false;
+					}
+						return $value > 19991231 ? false : true
+				});
+			}
 
-		            return $value > 19991231 ? false : true
-		        });
-		    }
-
-		    public function register()
-		    {
-		        //
-		    }
+			public function register()
+			{
+				//
+			}
 		}
 	```
 	到這邊基本上一個簡易的年齡驗證就完成了，剩下就是去 request 裡面直接使用，如下所示
@@ -348,14 +345,15 @@ laravel 5.2 提供了一個功能 [fzaninotto/Faker](https://github.com/fzaninot
 	> 這邊主要是去定義假資料的型態以及內容，更詳細有關 <font color="blue">$faker</font> 有哪些方法可用，可以直接看原始碼 <font color="blue">`Generator.php`</font>，路徑：<font color="red">`/vendor/fzaninotto/faker/src/Faker/Generator.php`</font>
 
 	```php
-		$factory->define(App\User::class, function (Faker\Generator $faker) {
-			return [
-				'name' => $faker->name,
-				'phone' => '09'.$faker->randomNumber(8, true),
-				'email' => $faker->unique()->safeEmail,
-				'address' => $faker->address,
-			];
-		});
+	$factory->define(App\User::class, function (Faker\Generator $faker
+	{
+		return [
+			'name' => $faker->name,
+			'phone' => '09'.$faker->randomNumber(8, true),
+			'email' => $faker->unique()->safeEmail,
+			'address' => $faker->address,
+		];
+	});
 	```
 	
 6. 在這邊我們需要指定測試資料的呈現方式是 <font color="red">中文</font>，於是我們到 <font color="red">`app/Providers`</font>，修改<font color="blue">`AppServiceProvider.php`</font> 如下：
@@ -366,12 +364,11 @@ laravel 5.2 提供了一個功能 [fzaninotto/Faker](https://github.com/fzaninot
 
 	```php
 	public function boot()
-    {
-        $this->app->singleton(FakerGenerator::class, function() {
-            return FakerFactory::create('zh_TW');
-        });
-
-    }
+	{
+		$this->app->singleton(FakerGenerator::class, function() {
+			return FakerFactory::create('zh_TW');
+		});
+	}
 	```
 
 7. 輸入：<font color="blue">`php artisan migrate`</font> 建立 table 
@@ -386,3 +383,60 @@ laravel 5.2 提供了一個功能 [fzaninotto/Faker](https://github.com/fzaninot
 	![正確寫入資料庫](https://i.imgur.com/Mgn1w0V.png)
 	
 	![正確寫入資料庫](https://i.imgur.com/vXAlyZW.png)
+	
+## 10. 如何自定義命令 ##
+我們一般常用的命令有 <font color="blue">`php artisan serve`，`php artisan make:model`</font>....等其他命令，那如果我們想要創建自己的命令該怎麼做呢？
+
+1. 輸入 <font color="blue">`php artisan make:console Hello`</font>，就會在 <font color="red">`app/Console/Commands`</font> 底下生成 <font color= "blue">Hello.php</font>
+
+2. 修改 <font color="blue">`Hello.php`</font>，預設內容如下：
+
+	```php
+	class Hello extends Command
+	{
+		protected $signature = 'command:name';
+		protected $description = 'Command description';
+
+		public function __construct()
+		{
+			parent::__construct();
+		}
+
+		public function handle()
+		{
+			//
+		}
+	}
+	```
+
+3. 修改如下：
+
+	```php
+	class Hello extends Command
+	{
+		protected $signature = 'laravel:hello';
+		protected $description = 'test laravel command';
+
+		public function __construct()
+		{
+			parent::__construct();
+		}
+
+		public function handle()
+		{
+			$this->info('Hello Laravel 5.2');
+		}
+	}
+	```
+
+4. 去 <font color="red">`app/Console`</font> 底下的 <font color="blue">Kernel.php</font> 註冊，如下所示：
+
+	```php
+	protected $commands = [
+		Commands\Hello::class,
+	];
+	```
+	
+5. 最後在命令提示輸入 <font color="blue">`php artisan laravel:hello`</font>，就會輸出 <font color="red">Hello Laravel 5.2</font>
+
+6. 關於 [Commands](https://laravel.tw/docs/5.2/artisan#writing-commands) 更詳細內容
