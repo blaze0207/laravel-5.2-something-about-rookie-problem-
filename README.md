@@ -274,7 +274,7 @@ laravel 有一個套件叫做 [laravel/socialite](https://github.com/laravel/soc
 		                return false;
 		            }
 
-		            $value > 19991231 ? false : true
+		            return $value > 19991231 ? false : true
 		        });
 		    }
 
